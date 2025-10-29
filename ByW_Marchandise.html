@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ByW Marchandise</title>
+  <style>
+    :root{
+      --accent:#f8b500;
+      --text:#1f2937;
+      --card-radius:14px;
+      --shadow: 0 8px 24px rgba(15,23,42,0.12);
+      --max-width:1100px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: Inter, "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(248,181,0,0.08), transparent 12%),
+        radial-gradient(900px 500px at 90% 90%, rgba(0,168,255,0.06), transparent 12%),
+        linear-gradient(180deg,#fff8e6 0%, #fffaf3 55%, #fff 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:22px;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      background:linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
+      padding:14px 18px;
+      border-radius:12px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .brand img{width:60px;height:60px;object-fit:contain;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+    .brand h1{font-size:20px;color:var(--accent);letter-spacing:0.6px;margin-bottom:2px}
+    .brand p{font-size:13px;color:#6b7280;margin-top:2px}
+
+    .hero{
+      display:flex;
+      gap:20px;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
+      border-radius:12px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-text{max-width:720px}
+    .hero-text h2{font-size:22px;color:#111827;margin-bottom:6px}
+    .hero-text p{color:#374151;line-height:1.5}
+
+    .reasons{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}
+    .reason{
+      background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.9));
+      padding:10px 12px;border-radius:10px;font-size:13px;
+      box-shadow:0 6px 16px rgba(15,23,42,0.06);color:#374151;
+    }
+
+    .products{display:grid;grid-template-columns: repeat(3,1fr);gap:18px;align-items:start}
+
+    .card{
+      border-radius:var(--card-radius);
+      padding:14px;
+      color:#fff;
+      min-height:170px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:relative;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      transform:translateY(6px);
+      transition:transform .36s cubic-bezier(.2,.9,.3,1), box-shadow .36s;
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 36px rgba(15,23,42,0.18)}
+    .card h3{font-size:18px;margin-bottom:8px;letter-spacing:0.2px}
+    .thumbs{display:flex;gap:8px;flex-wrap:wrap}
+    .thumbs img{width:72px;height:72px;object-fit:cover;border-radius:8px;border:2px solid rgba(255,255,255,0.14);box-shadow:0 6px 18px rgba(0,0,0,0.08);transition:transform .28s}
+    .thumbs img:hover{transform:scale(1.06);box-shadow:0 20px 40px rgba(0,0,0,0.18)}
+
+    .label{font-size:12px;background:rgba(255,255,255,0.12);color:#fff;padding:6px 8px;border-radius:999px;align-self:flex-start;backdrop-filter: blur(4px)}
+
+    .g1{background:linear-gradient(135deg,#ff9a9e 0%,#fecfef 100%);color:#3b2a37}
+    .g2{background:linear-gradient(135deg,#a18cd1 0%,#fbc2eb 100%)}
+    .g3{background:linear-gradient(135deg,#89f7fe 0%,#66a6ff 100%)}
+    .g4{background:linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%);color:#3b2a37}
+    .g5{background:linear-gradient(135deg,#f6d365 0%,#fda085 100%);color:#3b2a37}
+
+    .card::after{
+      content:"";
+      position:absolute;inset:0;opacity:0.08;
+      background-image: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.12), transparent 8%),
+                        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 8px);
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+
+    footer{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:14px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+      border-radius:12px;
+      box-shadow:var(--shadow);
+      margin-top:6px;
+    }
+
+    /* WhatsApp button sekarang menggunakan inline SVG sehingga tetap tajam */
+    .wa-btn{
+      display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+      background:linear-gradient(90deg,#25D366,#1DA851);color:#fff;padding:10px 14px;border-radius:10px;font-weight:600;
+      box-shadow:0 10px 24px rgba(37,211,102,0.18);
+    }
+    .wa-icon{
+      width:22px;height:22px;display:inline-block;flex-shrink:0;
+    }
+    .wa-text{font-size:14px;color:#fff;font-weight:600}
+
+    @media (max-width:1000px){ .products{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:670px){
+      body{padding:18px}
+      .products{grid-template-columns:1fr}
+      .brand h1{font-size:18px}
+      .hero{flex-direction:column;align-items:flex-start}
+      .thumbs img{width:64px;height:64px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <img src="gambar w/gambar wh.png" alt="Logo ByW Marchandise" />
+        <div>
+          <h1>ByW Marchandise</h1>
+          <p>Handmade bracelet & accessories • Premium look</p>
+        </div>
+      </div>
+
+      <nav style="margin-left:auto">
+        <!-- Inline SVG WhatsApp icon (vector) agar tajam di semua resolusi -->
+        <a class="wa-btn" href="https://wa.me/6285749879013" target="_blank" rel="noopener noreferrer" aria-label="Hubungi via WhatsApp">
+          <span class="wa-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#25D366"/>
+                  <stop offset="1" stop-color="#1DA851"/>
+                </linearGradient>
+              </defs>
+              <rect width="24" height="24" rx="5" fill="url(#g1)"/>
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.672.149s-.770.967-.944 1.166c-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.447-.52.151-.174.201-.298.301-.497.099-.198.05-.372-.025-.52-.074-.149-.672-1.62-.921-2.218-.242-.581-.487-.502-.672-.512l-.574-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.148.198 2.095 3.2 5.076 4.487 0 0 .339.146.61.073.271-.073 1.758-.719 2.006-1.415.248-.695.248-1.29.173-1.415-.074-.124-.272-.198-.569-.347z" fill="#fff"/>
+            </svg>
+          </span>
+          <span class="wa-text">0857-4987-9013</span>
+        </a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-label="Sambutan">
+      <div class="hero-text">
+        <h2>Selamat Datang di ByW Marchandise</h2>
+        <p>Temukan aksesoris gelang yang dirancang dengan sentuhan personal dan motif menarik. Setiap produk dipilih untuk memberi kesan elegan dan nyaman dipakai sehari-hari.</p>
+        <div class="reasons" style="margin-top:12px">
+          <div class="reason">Desain eksklusif & limited</div>
+          <div class="reason">Bahan berkualitas</div>
+          <div class="reason">Pengiriman aman & packing rapi</div>
+        </div>
+      </div>
+      <picture style="min-width:160px">
+        <img src="gambar w/spide1.jpg" alt="Contoh produk" style="width:160px;height:160px;border-radius:12px;object-fit:cover;box-shadow:0 14px 36px rgba(0,0,0,0.12)" />
+      </picture>
+    </section>
+
+    <section>
+      <h2 style="margin-bottom:12px;color:#111827">Kategori Produk</h2>
+
+      <div class="products">
+        <div class="card g1" onclick="openShopee()" role="button" aria-label="Gantungan Coupel Spotify" tabindex="0">
+          <div>
+            <div class="label">Gantungan</div>
+            <h3>Gantungan Coupel Spotify</h3>
+            <p style="font-size:13px;opacity:0.9;color:rgba(0,0,0,0.55)">Aksen lucu untuk pasangan atau sebagai hadiah</p>
+          </div>
+          <div class="thumbs" style="margin-top:10px">
+            <img src="gambar w/gantungan1.jpg" alt="g1" />
+            <img src="gambar w/gantungan2.jpg" alt="g2" />
+            <img src="gambar w/gantungan3.jpg" alt="g3" />
+            <img src="gambar w/gantungan4.jpg" alt="g4" />
+          </div>
+        </div>
+
+        <div class="card g2" onclick="openShopee()" role="button" aria-label="Gelang Speder-man" tabindex="0">
+          <div>
+            <div class="label">Pria & Wanita</div>
+            <h3>Gelang Speder-man</h3>
+            <p style="font-size:13px;opacity:0.95">Desain penuh warna dan karakter</p>
+          </div>
+          <div class="thumbs">
+            <img src="gambar w/spide1.jpg" alt="s1" />
+            <img src="gambar w/spide2.jpg" alt="s2" />
+            <img src="gambar w/spide3.jpg" alt="s3" />
+            <img src="gambar w/spide4.jpg" alt="s4" />
+            <img src="gambar w/spide5.jpg" alt="s5" />
+            <img src="gambar w/spide6.jpg" alt="s6" />
+          </div>
+        </div>
+
+        <div class="card g3" onclick="openShopee()" role="button" aria-label="Gelang Cewek" tabindex="0">
+          <div>
+            <div class="label">Feminine</div>
+            <h3>Gelang Cewek</h3>
+            <p style="font-size:13px;opacity:0.95">Minimalis, manis, dan cocok untuk sehari-hari</p>
+          </div>
+          <div class="thumbs">
+            <img src="gambar w/cwe1.jpg" alt="c1" />
+            <img src="gambar w/cwe2.jpg" alt="c2" />
+            <img src="gambar w/cwe3.jpg" alt="c3" />
+          </div>
+        </div>
+
+        <div class="card g4" onclick="openShopee()" role="button" aria-label="Gelang Cewek-Cowo Speder-man" tabindex="0">
+          <div>
+            <div class="label">Couple</div>
+            <h3>Gelang Cewek-Cowo Speder-man</h3>
+            <p style="font-size:13px;opacity:0.95">Set pasangan dengan motif serasi</p>
+          </div>
+          <div class="thumbs">
+            <img src="gambar w/pru1.jpg" alt="cc1" />
+            <img src="gambar w/pru2.jpg" alt="cc2" />
+            <img src="gambar w/pru3.jpg" alt="cc3" />
+          </div>
+        </div>
+
+        <div class="card g5" onclick="openShopee()" role="button" aria-label="Gelang Cewek Motif Bintang" tabindex="0">
+          <div>
+            <div class="label">Motif Bintang</div>
+            <h3>Gelang Cewek Motif Bintang</h3>
+            <p style="font-size:13px;opacity:0.95">Sentuhan berkilau dan manis untuk look glam</p>
+          </div>
+          <div class="thumbs">
+            <img src="gambar w/bnt1.jpg" alt="b1" />
+            <img src="gambar w/bnt2.jpg" alt="b2" />
+            <img src="gambar w/bnt3.jpg" alt="b3" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>
+        <strong>ByW Marchandise</strong>
+        <div style="font-size:13px;color:#6b7280">Handmade • Est. 2025</div>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <a class="wa-btn" href="https://wa.me/6285749879013" target="_blank" rel="noopener noreferrer" aria-label="Hubungi via WhatsApp">
+          <span class="wa-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+              <defs>
+                <linearGradient id="g2" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#25D366"/>
+                  <stop offset="1" stop-color="#1DA851"/>
+                </linearGradient>
+              </defs>
+              <rect width="24" height="24" rx="5" fill="url(#g2)"/>
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.672.149s-.770.967-.944 1.166c-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.447-.52.151-.174.201-.298.301-.497.099-.198.05-.372-.025-.52-.074-.149-.672-1.62-.921-2.218-.242-.581-.487-.502-.672-.512l-.574-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.148.198 2.095 3.2 5.076 4.487 0 0 .339.146.61.073.271-.073 1.758-.719 2.006-1.415.248-.695.248-1.29.173-1.415-.074-.124-.272-.198-.569-.347z" fill="#fff"/>
+            </svg>
+          </span>
+          <span class="wa-text">Hubungi via WhatsApp</span>
+        </a>
+        <a style="font-size:13px;color:#6b7280;text-decoration:underline" href="https://s.shopee.co.id/AUlk0W9QzV" target="_blank" rel="noopener noreferrer">Kunjungi toko Shopee</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function openShopee(){ window.open("https://s.shopee.co.id/AUlk0W9QzV","_blank"); }
+    document.querySelectorAll('.card').forEach(c=>{
+      c.addEventListener('keydown', e=>{
+        if(e.key === 'Enter' || e.key === ' ') openShopee();
+      });
+    });
+  </script>
+</body>
+</html>
